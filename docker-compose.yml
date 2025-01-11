@@ -1,0 +1,35 @@
+# networks
+# create a network 'audiobookshelfnetwork_compose' in mode 'bridged'
+networks:
+  audiobookshelfnetwork_compose:
+    driver: bridge
+
+services:
+  audiobookshelf:
+    container_name: audiobookshelf_compose
+    image: ghcr.io/advplyr/audiobookshelf:latest
+    networks:
+      - audiobookshelfnetwork_compose
+    restart: always
+    ports:
+      - 13378
+    volumes:
+      - ./audiobooks:/audiobooks
+      - ./podcasts:/podcasts
+      - ./config:/config
+      - ./metadata:/metadata
+    environment:
+      - PORT=13378
+  # nginx
+  nginx:
+    container_name: nginx_audiobookshelf_compose
+    restart: always
+    image: nginx:latest
+    volumes:
+      - ./nginx/templates:/etc/nginx/templates:ro
+      - ./nginx/ssl/self.cert:/etc/nginx/ssl/self.cert:ro
+      - ./nginx/ssl/self-ssl.key:/etc/nginx/ssl/self-ssl.key:ro
+    ports:
+      - 8444:443
+    networks:
+      - audiobookshelfnetwork_compose
