@@ -27,7 +27,6 @@ services:
     image: nginx:latest
     volumes:
       - ./nginx/templates:/etc/nginx/templates:ro
-      -  /etc/letsencrypt:/etc/letsencrypt
     ports:
       - 8444:80
     networks:
