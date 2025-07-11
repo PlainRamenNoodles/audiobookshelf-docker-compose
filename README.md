@@ -18,7 +18,7 @@ Clone the GIT repository and start audiobookshelf:
 git clone "https://github.com/jifffffy/audiobookshelf-docker-compose.git"
 cd audiobookshelf-docker-compose
 ./prepare.sh
-docker compose up -d
+docker-compose up -d
 ```
 
 Your audiobookshelf server should now be available at `https://ip of your server:8444`.
